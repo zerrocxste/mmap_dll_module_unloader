@@ -24,7 +24,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
-		printf("[+]" __FUNCTION__ " > Module base address: %p\n", (void*)hModule);
+		printf("[+] " __FUNCTION__ " > Module base address: %p\n", (void*)hModule);
 
 		if (!MMapModuleUnloader::MMapModuleUnloaderInitialize(hModule))
 		{

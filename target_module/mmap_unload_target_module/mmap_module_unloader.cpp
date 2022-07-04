@@ -14,7 +14,6 @@ DWORD LibraryUnlinker(LibraryUnlinkerData_s* libraryUnlinkerData);
 
 struct LibraryUnlinkerNode_s
 {
-	LibraryUnlinkerNode_s() : m_NextNode(nullptr) {}
 	MEMORY_BASIC_INFORMATION mbi{};
 	LibraryUnlinkerNode_s* m_NextNode;
 };
@@ -106,7 +105,8 @@ void MMapModuleUnloader::ExFreeLib()
 		if (mbi.Type != MEM_PRIVATE)
 			break;
 
-		*Node = new LibraryUnlinkerNode_s();
+		*Node = (LibraryUnlinkerNode_s*)pLibUnlinkerData->m_pMallocFA(sizeof(LibraryUnlinkerNode_s));
+		memset(*Node, 0, sizeof(LibraryUnlinkerNode_s));
 		(*Node)->mbi = mbi;
 		Node = &(*Node)->m_NextNode;
 	}
